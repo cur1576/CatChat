@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CatChat</string>
+
+
+    <string name="txt_drafts">drafts</string>
+    <string name="txt_inbox">inbox</string>
+    <string name="txt_sent_item">sent item</string>
+    <string name="txt_trash">trash</string>
+</resources>
