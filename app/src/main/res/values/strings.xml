@@ -6,4 +6,15 @@
     <string name="txt_inbox">inbox</string>
     <string name="txt_sent_item">sent item</string>
     <string name="txt_trash">trash</string>
+    <string name="spot_catchat_com">spot@catchat.com</string>
+
+    <string name="nav_inbox">Mesagez</string>
+    <string name="nav_drafts">Draftz</string>
+    <string name="nav_sent">Sent mesagez</string>
+    <string name="nav_trash">In da trash</string>
+    <string name="nav_support">Support</string>
+    <string name="nav_help">Halp</string>
+    <string name="nav_feedback">Giv us feedback</string>
+    <string name="nav_open_drawer">Open navigation drawer</string>
+    <string name="nav_close_drawer">Close navigation drawer</string>
 </resources>
