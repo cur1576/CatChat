@@ -1,9 +1,11 @@
 package com.example.catchat;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +24,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
-                R.string.nav_open_drawer,R.string.nav_close_drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.nav_open_drawer, R.string.nav_close_drawer);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -32,13 +34,57 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Fragment fragment = new InboxFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.content_frame,fragment);
+        transaction.add(R.id.content_frame, fragment);
         transaction.commit();
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Toast.makeText(this, "item: " + menuItem.getItemId() + " wurde geklickt", Toast.LENGTH_SHORT).show();
+        int id = menuItem.getItemId();
+        Fragment fragment = null;
+        Intent intent = null;
+        switch (id) {
+            case R.id.nav_drafts:
+                fragment = new DraftsFragment();
+                break;
+            case R.id.nav_sent:
+                fragment = new SentItemsFragment();
+                break;
+            case R.id.nav_trash:
+                fragment = new TrashFragment();
+                break;
+            case R.id.nav_help:
+                intent = new Intent(this, HelpActivity.class);
+                break;
+            case R.id.nav_feedback:
+                intent = new Intent(this, FeedbackActivity.class);
+                break;
+            default:
+                fragment = new InboxFragment();
+        }
+
+        if(fragment != null){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame,fragment);
+            ft.commit();
+        }else {
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if(drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+
     }
 }
